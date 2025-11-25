@@ -892,7 +892,7 @@
                 // In der Saison: Prüfe die Uhrzeit
                 
                 if (currentTotalMinutes >= OPEN_TIME_MINUTES && currentTotalMinutes < CLOSE_TIME_MINUTES) {
-                    // **STATUS: GEÖFFNET**
+                    // **STATUS: GEÖFFNET (17:00 - 20:59)**
                     statusHTML = '<div class="status-open">Heute geöffnet</div>';
                     
                     // Berechne Zeit bis zum Schließen (21:00 Uhr) + 1 Minute Puffer
@@ -900,8 +900,8 @@
                     nextCheckDelayMs = (minutesUntilClose + 1) * 60 * 1000; 
                     
                 } else if (currentTotalMinutes < OPEN_TIME_MINUTES) {
-                    // **STATUS: GESCHLOSSEN (Wartet auf 17:00 Uhr)**
-                    statusHTML = '<div class="status-closed">Heute geschlossen</div>';
+                    // **STATUS: NOCH GESCHLOSSEN (Wartet auf 17:00 Uhr) -> HIER WURDE GEÄNDERT**
+                    statusHTML = '<div class="status-closed">Geschlossen. Öffnet um 17:00 Uhr.</div>';
                     
                     // Berechne Zeit bis zum Öffnen (17:00 Uhr) + 1 Minute Puffer
                     let minutesUntilOpen = OPEN_TIME_MINUTES - currentTotalMinutes;
@@ -909,7 +909,7 @@
                     
                 } else { // currentTotalMinutes >= CLOSE_TIME_MINUTES
                     // **STATUS: GESCHLOSSEN (Nach 21:00 Uhr)**
-                    statusHTML = '<div class="status-closed">Heute geschlossen</div>';
+                    statusHTML = '<div class="status-closed">Heute geschlossen (Schlusszeit 21:00 Uhr erreicht).</div>';
                     
                     // Berechne Zeit bis zur Öffnung am nächsten Tag (17:00 Uhr) + 1 Minute Puffer
                     let minutesUntilNextOpen = (1440 - currentTotalMinutes) + OPEN_TIME_MINUTES; // 1440 Minuten pro Tag
